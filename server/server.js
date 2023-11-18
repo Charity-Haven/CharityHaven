@@ -9,6 +9,7 @@ app.use(cookieParser());
 app.use(cors())
 const PORT =8080;
 
+
 // const role = require('./Models/roleModel') 
 // const user = require('./Models/userModel')
 // const item = require('./Models/itemDonationModel')
@@ -24,4 +25,16 @@ mongoose.connect(`mongodb+srv://${process.env.Mongo_USER}:${process.env.MONGO_PA
 })
 
 
-app.listen(PORT,console.log(`server is running in ${PORT}`))
+
+const beneficiariesRoute = require('./Routes/beneficiariesRoute');
+app.use(beneficiariesRoute)
+
+
+
+
+
+app.listen(PORT,console.log(`server is running in ${PORT}`));
+
+
+
+module.exports = app;
