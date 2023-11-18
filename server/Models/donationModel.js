@@ -15,3 +15,12 @@ const donationSchema = new mongoose.Schema({
 const Donation = mongoose.model('Donation', donationSchema);
 
 module.exports = Donation;
+
+// const {
+//   donation_title,
+//   donation_description,
+//   donation_type,
+//   expected_outcome,
+//   total_donation,
+//   donation_img,
+// } = req.body;
