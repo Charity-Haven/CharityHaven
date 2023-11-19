@@ -7,9 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-
-app.use(cors())
-
+const stripe = require('stripe')("sk_test_51OCizILLmtJgsGjhKcKg5Lk0FoXKwJJbs9xIeYxPH07CWN8jB8DGeDij7QvAnGZm0k0B9SlOlEU0EtsYydAPnvDH002qVZo6ac");
 const PORT = 8080;
 
 const passport = require('passport');
@@ -25,6 +23,10 @@ app.use(passport.session());
 // const donation = require('./Models/donationModel');
 // const pay = require('./Models/paymentModel');
 // const bini = require('./Models/beneficiariesModel');
+
+// Import your payment routes
+const paymentRoutes = require('./Routes/paymentRoutes');
+app.use('/api',  paymentRoutes);
 
 const userLog = require('./Routes/authonticationRoutes');
 app.use(userLog);
@@ -47,18 +49,8 @@ app.use(itemDonationsRoute);
 
 app.listen(PORT, console.log(`server is running in ${PORT}`));
 
-
-
 const beneficiariesRoute = require('./Routes/beneficiariesRoute');
 app.use(beneficiariesRoute)
-
-
-
-
-
-
-
-
 
 module.exports = app;
 
