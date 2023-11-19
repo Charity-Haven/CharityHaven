@@ -5,6 +5,10 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const app = express();
 app.use(cors());
+
+const Parser = require('body-parser');
+app.use(Parser.urlencoded({ extended: true }));
+
 app.use(express.json());
 app.use(cookieParser());
 const stripe = require('stripe')("sk_test_51OCizILLmtJgsGjhKcKg5Lk0FoXKwJJbs9xIeYxPH07CWN8jB8DGeDij7QvAnGZm0k0B9SlOlEU0EtsYydAPnvDH002qVZo6ac");
@@ -25,8 +29,8 @@ app.use(passport.session());
 // const bini = require('./Models/beneficiariesModel');
 // const response = require('./Models/responseModel');
 // const feedback = require('./Models/feedbackModel');
-
 // Import your payment routes
+
 const paymentRoutes = require('./Routes/paymentRoutes');
 app.use('/api',  paymentRoutes);
 
@@ -52,6 +56,7 @@ app.use(itemDonationsRoute);
 app.listen(PORT, console.log(`server is running in ${PORT}`));
 
 const beneficiariesRoute = require('./Routes/beneficiariesRoute');
+const bodyParser = require("body-parser");
 app.use(beneficiariesRoute)
 
 module.exports = app;
