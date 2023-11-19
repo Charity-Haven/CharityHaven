@@ -6,7 +6,7 @@ const Joi = require('joi');
 require('dotenv').config();
 
 const schema = Joi.object({
-    username : Joi.string().alphanum().min(3).max(10).required(),
+    username : Joi.string().min(3).max(10).required(),
     email : Joi.string().email().required(),
     password : Joi.string().required(),
     phoneNumber : Joi.string().min(9).max(14).required(),
@@ -26,8 +26,8 @@ async function createUser (req, res){
   try {
     const { username, email, password, phoneNumber, age, user_location } = req.body;
     const valid = validation(username, email, password, phoneNumber);
-    const serach = await User.findOne({ email : email });
-    if (serach.email){
+    // const serach = await User.findOne({ email : email });
+    if (false){
         res.status(400).json("this email is already have an account");
     } else{
         if (valid){
