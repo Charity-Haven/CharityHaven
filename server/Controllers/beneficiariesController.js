@@ -4,11 +4,11 @@ const Request = require('../Models/beneficiariesModel');
 
 const newRequest = async (req, res) => {
 
-    //const userID = req.user._id
+    const userID = req.user.id
   const formData = req.body;
 
   const newRequest = new Request({
-    beneficiarie_user:"655234f3e08453b1b3ab2677",
+    beneficiarie_user:userID,
     beneficiarie_description: formData.beneficiarie_description,
     card_number: formData.card_number,
     beneficiarie_amount: formData.beneficiarie_amount,
@@ -28,8 +28,8 @@ const newRequest = async (req, res) => {
 
 // git all request for specific users
 const getAllRequest = async (req, res) => {
-    //const userID = req.user._id
-    const userID = "655234f3e08453b1b3ab2677"
+    const userID = req.user.id
+    // const userID = "655234f3e08453b1b3ab2677"
     try {
         const all = await Request.find({ is_deleted: false, beneficiarie_accepted:true,beneficiarie_user:userID});
         res.json(all);
@@ -54,8 +54,8 @@ const getAllRequestAdmin = async (req, res) => {
 
 
 const deleteRequest = async (req, res) => {
-    // const userID = req.user._id
-    userID = "655234f3e08453b1b3ab2677"  //UserID for Admin
+    const userID = req.user.id
+    // userID = "655234f3e08453b1b3ab2677"  //UserID for Admin
     try {
         const requestId = req.params.id;
         const updatedRequestData = req.body;
@@ -80,8 +80,8 @@ const deleteRequest = async (req, res) => {
 
 
 const updateRequeststatus = async (req, res) => {
-    // const userID = req.user._id
-    userID = "655234f3e08453b1b3ab2677"
+    const userID = req.user.id
+    // userID = "655234f3e08453b1b3ab2677"
     try {
         const requestId = req.params.id;
         const updatedRequestData = req.body;
@@ -105,8 +105,8 @@ const updateRequeststatus = async (req, res) => {
 
 
 const updateRequestaccept = async (req, res) => {
-    // const userID = req.user._id
-    userID = "655234f3e08453b1b3ab2677"
+    const userID = req.user.id
+    // userID = "655234f3e08453b1b3ab2677"
     try {
         const requestId = req.params.id;
         const updatedRequestData = req.body;
