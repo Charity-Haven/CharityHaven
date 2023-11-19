@@ -2,29 +2,32 @@ const Donation = require("../Models/donationModel");
 
 async function addDonation(req, res) {
   try {
-    const donor_id = req.params.donor_id;
+    const donor_id = req.user.id;
+    if (req.user.role === 1) {
+      const {
+        donation_title,
+        donation_description,
+        donation_type,
+        expected_outcome,
+        donation_img,
+      } = req.body;
 
-    const {
-      donation_title,
-      donation_description,
-      donation_type,
-      expected_outcome,
-      donation_img,
-    } = req.body;
+      const newDonation = new Donation({
+        donation_title,
+        donation_description,
+        donor_id,
+        donation_type,
+        expected_outcome,
+        created_at: new Date(), // Set the current date and time
+        donation_img,
+        is_deleted: false, // New donations are not deleted by default
+      });
 
-    const newDonation = new Donation({
-      donation_title,
-      donation_description,
-      donor_id,
-      donation_type,
-      expected_outcome,
-      created_at: new Date(), // Set the current date and time
-      donation_img,
-      is_deleted: false, // New donations are not deleted by default
-    });
-
-    await newDonation.save();
-    res.status(201).json(newDonation);
+      await newDonation.save();
+      res.status(201).json(newDonation);
+    } else {
+      res.status(401).json({ error: "User is unotharized for this action" });
+    }
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
