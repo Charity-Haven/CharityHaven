@@ -23,15 +23,17 @@ app.use(passport.session());
 // const donation = require('./Models/donationModel');
 // const pay = require('./Models/paymentModel');
 // const bini = require('./Models/beneficiariesModel');
+// const response = require('./Models/responseModel');
+// const feedback = require('./Models/feedbackModel');
 
 // Import your payment routes
 const paymentRoutes = require('./Routes/paymentRoutes');
 app.use('/api',  paymentRoutes);
 
 const userLog = require('./Routes/authonticationRoutes');
+const feddbackRewsponse = require('./Routes/feedbackResponseRoutes');
 app.use(userLog);
-
-// const fb = require('./Models/feedbackModel')
+app.use(feddbackRewsponse);
 
 mongoose.connect(`mongodb+srv://${process.env.Mongo_USER}:${process.env.MONGO_PASSWORD}@cluster0.w4eb3k0.mongodb.net/charity?retryWrites=true&w=majority`)
 .then(() => {
