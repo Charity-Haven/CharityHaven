@@ -1,3 +1,6 @@
+
+
+
 const User = require("../Models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -20,13 +23,16 @@ function validation(username, email, password, phoneNumber) {
     console.log(valid.error);
     return false;
   }
+
 };
 
 async function createUser(req, res) {
   try {
-    const { username, email, password, phoneNumber, age, user_location } = req.body;
+    const { username, email, password, phoneNumber, age, user_location } =
+      req.body;
     const valid = validation(username, email, password, phoneNumber);
     const serach = await User.findOne({ email : email });
+
     if (serach != undefined || serach != null){
         res.status(400).json("this email is already have an account");
     }else{
@@ -53,7 +59,7 @@ async function createUser(req, res) {
     console.log(error);
     res.status(500).json({ error: "Error in user model createUser" });
   }
-};
+}
 
 async function loginUser (req, res){
     try {
@@ -68,6 +74,7 @@ async function loginUser (req, res){
                 } else if (result) {
                     const accessToken = jwt.sign({id : theUser.id, email : theUser.email, role: theUser.role}, process.env.SECRET_KEY, {expiresIn: '4h'});
                     res.cookie('accessToken', accessToken, { httpOnly: true });
+
                     res.status(200).json({theUser, accessToken});
                     // res.render('homepageview.ejs', {accessToken});
                 } else {
@@ -77,6 +84,7 @@ async function loginUser (req, res){
           }else {
             res.status(401).json({ error: 'Email not found' });
           }
+
     } else {
       res.status(400).json("Invalid inputs");
     }
@@ -102,10 +110,15 @@ async function updateuser(req, res){
     }catch(error){
         res.status(500).json(error);
     }
-};
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Email not found" });
+  }
+}
 
 module.exports = {
   createUser,
   loginUser,
+
   updateuser
 };
