@@ -1,8 +1,9 @@
-const User = require('../Models/userModel');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const Joi = require('joi');
-require('dotenv').config();
+const User = require("../Models/userModel");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const Joi = require("joi");
+require("dotenv").config();
+
 
 const schema = Joi.object({
   username: Joi.string().min(3).max(30).required(),

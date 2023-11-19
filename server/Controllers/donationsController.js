@@ -94,8 +94,12 @@ async function deleteDonation(req, res) {
 
 async function getDonations(req, res) {
   try {
-    const donations = await Donation.find({ is_deleted: false });
-    res.json(donations);
+    const limit = parseInt(req.query.limit) || 4;
+
+    const donations = await Donation.find({ is_deleted: false }).limit(limit);
+
+    // res.json(donations);
+    res.render("homepageView.ejs", { donations });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal Server Error" });
@@ -142,6 +146,65 @@ async function getDonationById(req, res) {
   }
 }
 
+async function getDonationBySearch(req, res) {
+  try {
+    const { donation_title } = req.params;
+
+    if (!donation_title) {
+      return res
+        .status(400)
+        .json({ error: "Missing donation_title parameter" });
+    }
+
+    const donations = await Donation.find({
+      donation_title,
+      is_deleted: false,
+    });
+
+    res.json(donations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+async function getDonationsWithPagination(req, res) {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 4;
+
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+
+    const donations = await Donation.find({ is_deleted: false });
+
+    const results = {};
+
+    if (endIndex < donations.length) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+
+    if (startIndex > 0) {
+      results.previous = {
+        page: page - 1,
+        limit: limit,
+      };
+    }
+
+    results.results = donations.slice(startIndex, endIndex);
+
+    // res.render("homepageView.ejs", { results });
+
+    res.json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
 module.exports = {
   addDonation,
   updateDonation,
@@ -149,4 +212,6 @@ module.exports = {
   getDonations,
   filterDonationsByType,
   getDonationById,
+  getDonationBySearch,
+  getDonationsWithPagination,
 };

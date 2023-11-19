@@ -18,8 +18,16 @@ router.get(
   donationsController.filterDonationsByType
 );
 router.get(
-  "/getDonationById/:donation_id", 
+  "/getDonationById/:donation_id",
   donationsController.getDonationById
+);
+router.get(
+  "/getDonationBySearch/:donation_title",
+  donationsController.getDonationBySearch
+);
+router.get(
+  "/getDonationsWithPagination",
+  donationsController.getDonationsWithPagination
 );
 
 module.exports = router;
