@@ -28,29 +28,25 @@ async function createUser(req, res) {
       req.body;
     const valid = validation(username, email, password, phoneNumber);
     // const serach = await User.findOne({ email : email });
-    if (false) {
-      res.status(400).json("this email is already have an account");
-    } else {
-      if (valid) {
-        let user_password = await bcrypt.hash(password, 10);
-        const newUser = new User();
-        newUser.username = username;
-        newUser.email = email;
-        newUser.password = user_password;
-        newUser.phoneNumber = phoneNumber;
-        newUser.age = age;
-        newUser.user_location = user_location;
-        newUser.save();
-        const accessToken = jwt.sign(
-          { id: newUser.id, email: newUser.email, role: newUser.role },
-          process.env.SECRET_KEY,
-          { expiresIn: "4h" }
-        );
-        res.cookie("accessToken", accessToken, { httpOnly: true });
-        res.status(201).json({ newUser, accessToken });
-      } else {
-        res.status(400).json("Invalid input");
-      }
+    if (false){
+        res.status(400).json("this email is already have an account");
+    } else{
+        if (valid){
+            let user_password = await bcrypt.hash(password, 10);
+            const newUser = new User();
+            newUser.username = username;
+            newUser.email = email;
+            newUser.password = user_password;
+            newUser.phoneNumber = phoneNumber;
+            newUser.age = age;
+            newUser.user_location = user_location
+            newUser.save();
+            const accessToken = jwt.sign({id : newUser.id, email : newUser.email, role: newUser.role}, process.env.SECRET_KEY, {expiresIn: '4h'});
+            res.cookie('accessToken', accessToken, { httpOnly: true });
+            res.status(201).json({newUser, accessToken});
+        }else {
+            res.status(400).json("Invalid input");
+        }
     }
   } catch (error) {
     console.log(error);
