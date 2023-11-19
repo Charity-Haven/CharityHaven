@@ -3,7 +3,7 @@ const passport = require('passport');
 const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const Users = require('../Models/userModel');
-
+require('dotenv').config();
 
 const app = express();
 app.use(express.json());
