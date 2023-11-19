@@ -3,15 +3,15 @@ const Donation = require("../Models/donationModel");
 async function addDonation(req, res) {
   try {
     const donor_id = req.user.id;
-    if (req.user.role === 1) {
+    if (req.user.role === 2) {
       const {
         donation_title,
         donation_description,
         donation_type,
         expected_outcome,
-        donation_img,
       } = req.body;
-
+      console.log(res.locals);
+      const donation_img = res.locals.site;
       const newDonation = new Donation({
         donation_title,
         donation_description,

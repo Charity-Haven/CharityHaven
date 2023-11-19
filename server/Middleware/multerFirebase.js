@@ -11,7 +11,7 @@ app.use(express.static('public'));
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    storageBucket: 'gs://giftify-894d5.appspot.com/test',
+    storageBucket: 'gs://giftify-894d5.appspot.com',
 });
 
 async function getImageDownloadUrl(imageName) {

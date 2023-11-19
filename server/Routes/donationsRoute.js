@@ -6,7 +6,7 @@ const image = require('../Middleware/multerFirebase');
 
 router.post(
   "/addDonation",
-//   verifyJWT.authorize,
+  verifyJWT.authorize,
   image.uploadImg,
   donationsController.addDonation
 );
