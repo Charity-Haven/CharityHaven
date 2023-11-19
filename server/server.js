@@ -4,15 +4,10 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const app = express();
-
-const virfytoken = require("./Middleware/authorization");
-
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
-
 const stripe = require('stripe')("sk_test_51OCizILLmtJgsGjhKcKg5Lk0FoXKwJJbs9xIeYxPH07CWN8jB8DGeDij7QvAnGZm0k0B9SlOlEU0EtsYydAPnvDH002qVZo6ac");
-
 const PORT = 8080;
 
 const passport = require('passport');
@@ -54,18 +49,8 @@ app.use(itemDonationsRoute);
 
 app.listen(PORT, console.log(`server is running in ${PORT}`));
 
-
-
 const beneficiariesRoute = require('./Routes/beneficiariesRoute');
 app.use(beneficiariesRoute)
-
-
-
-
-
-
-
-
 
 module.exports = app;
 
