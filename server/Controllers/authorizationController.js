@@ -62,6 +62,7 @@ async function createUser(req, res) {
 }
 
 async function loginUser (req, res){
+
     try {
       const { email, password } = req.body;
       const valid = validation("username", email, password, "12345678910");

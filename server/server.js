@@ -15,6 +15,8 @@ app.use(Parser.urlencoded({ extended: true }));
 app.use(cookieParser());
 const stripe = require('stripe')("sk_test_51OCizILLmtJgsGjhKcKg5Lk0FoXKwJJbs9xIeYxPH07CWN8jB8DGeDij7QvAnGZm0k0B9SlOlEU0EtsYydAPnvDH002qVZo6ac");
 const PORT = 8080;
+const Parser = require('body-parser');
+app.use(Parser.urlencoded({ extended: true }));
 
 const passport = require('passport');
 const session = require('express-session');
