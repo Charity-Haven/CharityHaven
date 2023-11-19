@@ -10,7 +10,6 @@ async function authorize(req, res, next){
     try{
         if (!req.user){
         const tokenCookie = req.headers.cookie;
-        // const token = req.headers['authorization'];
         if (tokenCookie) {
             const cookiesArray = tokenCookie.split(';');
             const accessTokenCookie = cookiesArray.find(cookie => cookie.trim().startsWith('accessToken='));
