@@ -1,3 +1,4 @@
+
 const User = require('../Models/userModel');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -5,25 +6,26 @@ const Joi = require('joi');
 require('dotenv').config();
 
 const schema = Joi.object({
-    username : Joi.string().min(3).max(10).required(),
-    email : Joi.string().email().required(),
-    password : Joi.string().required(),
-    phoneNumber : Joi.string().min(9).max(14).required(),
+  username: Joi.string().min(3).max(30).required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+  phoneNumber: Joi.string().min(9).max(14).required(),
 });
 
-function validation(username, email, password, phoneNumber){
-const valid = schema.validate({username, email, password, phoneNumber});
-    if (valid.error == undefined){
-        return true;
-    }else {
-        console.log(valid.error);
-        return false;
-    }
-};
+function validation(username, email, password, phoneNumber) {
+  const valid = schema.validate({ username, email, password, phoneNumber });
+  if (valid.error == undefined) {
+    return true;
+  } else {
+    console.log(valid.error);
+    return false;
+  }
+}
 
-async function createUser (req, res){
+async function createUser(req, res) {
   try {
-    const { username, email, password, phoneNumber, age, user_location } = req.body;
+    const { username, email, password, phoneNumber, age, user_location } =
+      req.body;
     const valid = validation(username, email, password, phoneNumber);
     const serach = await User.findOne({ email : email });
     if (serach != undefined){
@@ -47,10 +49,10 @@ async function createUser (req, res){
         }
     }
   } catch (error) {
-    console.log(error)
-        res.status(500).json({ error: 'Error in user model createUser' });
+    console.log(error);
+    res.status(500).json({ error: "Error in user model createUser" });
   }
-};
+}
 
 async function loginUser (req, res){
     try {
@@ -74,16 +76,20 @@ async function loginUser (req, res){
           }else {
             res.status(401).json({ error: 'Email not found' });
           }
+        });
       } else {
-            res.status(400).json("Invalid inputs");
+        res.status(401).json({ error: "Email not found" });
       }
-    }catch (error) {
-        console.log(error);
-        res.status(500).json({ error: 'Email not found' });
+    } else {
+      res.status(400).json("Invalid inputs");
     }
-};
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Email not found" });
+  }
+}
 
 module.exports = {
-    createUser,
-    loginUser
+  createUser,
+  loginUser,
 };
