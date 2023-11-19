@@ -16,7 +16,6 @@ async function authorize(req, res, next){
             const accessTokenCookie = cookiesArray.find(cookie => cookie.trim().startsWith('accessToken='));
             if (accessTokenCookie) {
                 const accessToken = accessTokenCookie.split('=')[1].trim();
-                // console.log(accessToken);
                 const user = jwt.verify(accessToken, process.env.SECRET_KEY);
                 console.log(user);
                 if(user.email){
@@ -32,7 +31,6 @@ async function authorize(req, res, next){
             res.status(401).json("you need to login first");
         }
     }else{
-        console.log(req.user.user_id);
         next();
     }
     }catch(error){

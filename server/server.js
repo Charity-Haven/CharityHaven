@@ -8,8 +8,6 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(cors())
-
 const PORT = 8080;
 
 const passport = require('passport');
@@ -25,11 +23,13 @@ app.use(passport.session());
 // const donation = require('./Models/donationModel');
 // const pay = require('./Models/paymentModel');
 // const bini = require('./Models/beneficiariesModel');
+// const response = require('./Models/responseModel');
+// const feedback = require('./Models/feedbackModel');
 
 const userLog = require('./Routes/authonticationRoutes');
+const feddbackRewsponse = require('./Routes/feedbackResponseRoutes');
 app.use(userLog);
-
-// const fb = require('./Models/feedbackModel')
+app.use(feddbackRewsponse);
 
 mongoose.connect(`mongodb+srv://${process.env.Mongo_USER}:${process.env.MONGO_PASSWORD}@cluster0.w4eb3k0.mongodb.net/charity?retryWrites=true&w=majority`)
 .then(() => {
@@ -46,8 +46,6 @@ app.use(donationsRoute);
 app.use(itemDonationsRoute);
 
 app.listen(PORT, console.log(`server is running in ${PORT}`));
-
-
 
 const beneficiariesRoute = require('./Routes/beneficiariesRoute');
 app.use(beneficiariesRoute)
