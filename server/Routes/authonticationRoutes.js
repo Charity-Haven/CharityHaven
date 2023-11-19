@@ -6,6 +6,10 @@ const auth = require('../Middleware/authorization');
 const passport = require('passport');
 require('../Middleware/googleAuth');
 
+router.get('/loginpage', (req, res) => {
+    res.render('loginview.ejs');
+});
+
 router.post('/register', userscontrol.createUser);
 router.post('/login', userscontrol.loginUser);
 
@@ -19,15 +23,17 @@ router.get('/auth/google',
 router.get('/google/callback',
     passport.authenticate( 'google', {
         successRedirect: '/protected',
-        failureRedirect: '/not',
+        failureRedirect: '/unauthirized',
 }));
 
-router.get('/protected', auth.authorize, (req, res) => {
-    res.send('hello');
+router.get('/homepage', auth.authorize, (req, res) => {
+    res.render('homepageView.ejs');
 });
 
-router.get('/not' , (req, res) => {
+router.get('/unauthirized' , (req, res) => {
     res.send('unauthirized');
 });
+
+router.put('/updateuser', userscontrol.updateuser);
 
 module.exports = router;

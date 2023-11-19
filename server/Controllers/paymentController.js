@@ -1,4 +1,3 @@
-// controllers/paymentController.js
 const stripe = require("stripe")(
   "sk_test_51OCizILLmtJgsGjhKcKg5Lk0FoXKwJJbs9xIeYxPH07CWN8jB8DGeDij7QvAnGZm0k0B9SlOlEU0EtsYydAPnvDH002qVZo6ac"
 ); // Replace with your actual Stripe secret key
