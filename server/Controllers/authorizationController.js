@@ -1,6 +1,3 @@
-
-
-
 const User = require("../Models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -108,14 +105,11 @@ async function updateuser(req, res){
         updateUser.user_location = user_location;
         updateUser.save();
         res.status(201).json("user updates successfully");
-    }catch(error){
-        res.status(500).json(error);
-    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Email not found" });
   }
-}
+};
 
 module.exports = {
   createUser,

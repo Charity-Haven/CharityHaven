@@ -8,23 +8,19 @@ const users = require('../Models/userModel');
 
 
 const newRequest = async (req, res) => {
-
-    // const userID = req.user.id
+const userID = req.user.id
   const formData = req.body;
-
-  const newRequest = new Request({
-    beneficiarie_user:"655234f3e08453b1b3ab2677",
-    beneficiarie_description: formData.beneficiarie_description,
-    card_number: formData.card_number,
-    beneficiarie_amount: formData.beneficiarie_amount,
-    beneficiarie_type:formData.beneficiarie_type,
-      
-  });
+  const newRequest = new Request();
+  newRequest.beneficiarie_user = userID;
+  newRequest.beneficiarie_description = formData.beneficiarie_description;
+  newRequest.card_number = formData.card_number;
+  newRequest.beneficiarie_amount = formData.beneficiarie_amount;
+  newRequest.beneficiarie_type =formData.beneficiarie_type;
   try {
     const request = await newRequest.save();
-    res.render('homepageView.ejs');
-    // res.json(request);
-    console.log(formData);
+    // res.render('homepageView.ejs');
+    res.json(request);
+    // console.log(formData);
   } catch (error) {
     console.error('Error saving new request:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -34,15 +30,15 @@ const newRequest = async (req, res) => {
 
 // git all request for specific users
 const getAllRequest = async (req, res) => {
-    // const userID = req.user.id
-    const userID = "6558a8294e7a01a9bd6e9d4e"
+    const userID = req.user.id
+    // const userID = "6558a8294e7a01a9bd6e9d4e"
     
     try {
-        const user = await users.findById('6558a8294e7a01a9bd6e9d4e');
+        const user = await users.findById(userID);
 
         const all = await Request.find({ is_deleted: false, beneficiarie_accepted:false ,beneficiarie_user: userID});
-        // res.json(all);
-        res.render("userprofile.ejs", { all:all , user});
+        res.json(all);
+        // res.render("userprofile.ejs", { all:all , user});
     } catch (error) {
         res.status(500).json(error);
     }
@@ -55,8 +51,8 @@ const getAllRequestAdmin = async (req, res) => {
     // const userID = "655234f3e08453b1b3ab2677"
     try {
         const all = await Request.find({ is_deleted: false});
-        // res.json(all);
-        res.render('dashboard.ejs', { requests:all });
+        res.json(all);
+        // res.render('dashboard.ejs', { requests:all });
     } catch (error) {
         res.status(500).json({ error: 'Error fetching getAllReaquestAdmin' });
     }

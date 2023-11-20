@@ -123,13 +123,13 @@ exports.postPayments = async (req, res) => {
 exports.getPaymentsByUserId = async (req, res) => {
   try {
     // Extract user ID from the request object
-    const userId = req.userId;
+    const userId = req.user.id;
 
     if (!userId) {
       return res.status(401).json({ error: "User not authenticated" });
     }
 
-    const payments = await Payment.find({ payment_from: userId });
+    const payments = await Donation.find({ payment_from: userId });
 
     if (payments.length === 0) {
       return res

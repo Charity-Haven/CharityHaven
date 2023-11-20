@@ -3,7 +3,7 @@ const ItemDonation = require("../Models/itemDonationModel");
 async function addItemDonation(req, res) {
   try {
     const { item_name, item_description, item_type, item_img } = req.body;
-    const donor_id = req.params.donor_id; // Assuming donor_id is in the request parameters
+    const donor_id = req.user.id; // Assuming donor_id is in the request parameters
 
     const newItemDonation = new ItemDonation({
       item_name,
