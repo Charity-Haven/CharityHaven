@@ -10,4 +10,10 @@ router.put("/updatestatus/:id",middleware.authorize,beneficiariesController.upda
 router.put("/updateaccept/:id",middleware.authorize,beneficiariesController.updateRequestaccept);
 router.get("/allrequestAdmin",beneficiariesController.getAllRequestAdmin);
 
+
+
+
+
+
+
 module.exports = router;

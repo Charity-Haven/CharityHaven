@@ -94,7 +94,7 @@ async function loginUser (req, res){
 
 async function updateuser(req, res){
     try{
-        const id = req.body.id;
+        const id = '655a0636579c5a2037e02f7c';
         const {username, email, phoneNumber, age, user_location} = req.body;
         const updateUser = await User.findById(id);
         console.log(updateUser)

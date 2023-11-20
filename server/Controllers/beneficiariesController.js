@@ -8,23 +8,19 @@ const users = require('../Models/userModel');
 
 
 const newRequest = async (req, res) => {
-
-    const userID = req.user.id
+const userID = req.user.id
   const formData = req.body;
-
-  const newRequest = new Request({
-    beneficiarie_user:userID,
-    beneficiarie_description: formData.beneficiarie_description,
-    card_number: formData.card_number,
-    beneficiarie_amount: formData.beneficiarie_amount,
-    beneficiarie_type:formData.beneficiarie_type,
-      
-  });
+  const newRequest = new Request();
+  newRequest.beneficiarie_user = userID;
+  newRequest.beneficiarie_description = formData.beneficiarie_description;
+  newRequest.card_number = formData.card_number;
+  newRequest.beneficiarie_amount = formData.beneficiarie_amount;
+  newRequest.beneficiarie_type =formData.beneficiarie_type;
   try {
     const request = await newRequest.save();
     // res.render('homepageView.ejs');
     res.json(request);
-    console.log(formData);
+    // console.log(formData);
   } catch (error) {
     console.error('Error saving new request:', error.message);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -97,7 +93,7 @@ const updateRequeststatus = async (req, res) => {
         const requestId = req.params.id;
         const updatedRequestData = req.body;
 
-        updatedRequestData.status = true;
+        updatedRequestData.status;
 
         const status = await Request.findByIdAndUpdate(requestId, updatedRequestData, {
             new: true,beneficiarie_user:userID
@@ -125,14 +121,18 @@ const updateRequestaccept = async (req, res) => {
     // userID = "655234f3e08453b1b3ab2677"
     try {
         const requestId = req.params.id;
-        const { updatedRequestData } = req.body;
+        const updatedRequestData = req.body;
+
+        updatedRequestData.beneficiarie_accepted;
+
         const status = await Request.findByIdAndUpdate(requestId, updatedRequestData, {
             new: true,beneficiarie_user:userID
         });
-        await status.save();
-        res.json(status);
+
+        const updatedRequest = await beneficiarie_accepted.save();
+
+        res.json(updatedRequest);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ error: 'Failed to delete Order' });
     }
 };

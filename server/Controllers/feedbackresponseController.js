@@ -4,6 +4,7 @@ const response = require('../Models/responseModel');
 async function sendfeedback(req, res){
     try{
         const userID = req.user.id;
+
         const {feedback_text} = req.body;
         console.log(feedback_text);
         const newfeedback = new feedback();
@@ -27,6 +28,7 @@ async function sendresponse(req, res){
         newresponse.response_from = userID;
         newresponse.response_to = response_to;
         newresponse.save();
+
         res.status(201).json({"your response has beed send": newresponse});
     }catch(error){
         res.status(500).json("error in send response controller");
@@ -37,6 +39,7 @@ async function getfeedback(req, res){
     try{
         const userID = req.user.id;
         const allfeedback = await feedback.find();
+
         const allresponse = await response.find({response_from : userID});
         console.log(allfeedback);
         res.status(200).json({allfeedback, allresponse});

@@ -20,7 +20,7 @@ router.put(
   itemDonationsController.deleteItemDonation
 );
 
-router.get("/getItemDonations",  auth.authorize, itemDonationsController.getItemDonations);
+router.get("/getItemDonations",auth.authorize, itemDonationsController.getItemDonations);
 router.get(
   "/filterItemDonationsByType/:item_type",
   auth.authorize,

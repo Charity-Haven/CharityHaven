@@ -28,7 +28,7 @@ exports.processDonation = async (req, res) => {
         payment_date: new Date(),
         payment_for: "6557932492967ea83aa1d4c1",
         // payment_for: mongoose.Types.ObjectId(req.user._id), // Convert to ObjectId
-        payment_from: "655a6631f900fe8dbb0de554", // Convert to ObjectId
+        payment_from: "5fb3b8de3f068509588d8d3a", // Convert to ObjectId
       });
 
       await donation.save();

@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -94,7 +96,7 @@
       }
 
       .pagination-button {
-        background-color: #4caf50;
+        background-color: hsl(122, 39%, 49%);
         color: #fff;
         padding: 8px;
         border: none;
@@ -148,7 +150,7 @@
             Expected Outcome: <%= donation.expected_outcome %>
           </p>
           <p class="total-donation">
-            Total Donation: <%= donation.total_donation %>$
+            <a href="http://localhost:8080/api/postpayments">Total Donation: <%= donation.total_donation %>$</a>
           </p>
         </div>
         <% }); %>

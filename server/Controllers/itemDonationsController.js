@@ -3,13 +3,17 @@ const ItemDonation = require("../Models/itemDonationModel");
 async function addItemDonation(req, res) {
   try {
     const { item_name, item_description, item_type, item_img } = req.body;
-    const item_from = req.user.id;
-    const newItemDonation = new ItemDonation();
-    newItemDonation.item_name = item_name;
-    newItemDonation.item_description = item_description;
-    newItemDonation.item_type = item_type;
-    newItemDonation.item_img = item_img;
-    newItemDonation.item_from = item_from;
+    const donor_id = req.user.id; // Assuming donor_id is in the request parameters
+
+    const newItemDonation = new ItemDonation({
+      item_name,
+      item_description,
+      item_type,
+      item_img,
+      item_from: donor_id, // Associate the ItemDonation with the donor_id
+      is_deleted: false,
+    });
+
     await newItemDonation.save();
     res.status(201).json(newItemDonation);
   } catch (error) {

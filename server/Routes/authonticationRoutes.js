@@ -22,13 +22,13 @@ router.get('/auth/google',
 
 router.get('/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/homepage',
+        successRedirect: '/getDonations',
         failureRedirect: '/unauthirized',
 }));
 
-router.get('/homepage', auth.authorize, (req, res) => {
-    res.send('welcome in home page');
-});
+// router.get('/homepage', auth.authorize, (req, res) => {
+//     res.redirect('/getDonations');
+// });
 
 router.get('/unauthirized' , (req, res) => {
     res.send('unauthirized');

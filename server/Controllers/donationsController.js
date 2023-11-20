@@ -57,11 +57,14 @@ async function updateDonation(req, res) {
 
     // Update the donation
     donation.donation_title = donation_title || donation.donation_title;
-    donation.donation_description = donation_description || donation.donation_description;
+    donation.donation_description =
+      donation_description || donation.donation_description;
     donation.donation_type = donation_type || donation.donation_type;
     donation.expected_outcome = expected_outcome || donation.expected_outcome;
     donation.donation_img = donation_img || donation.donation_img;
+
     await donation.save();
+
     res.json(donation);
   } catch (error) {
     console.error(error);
