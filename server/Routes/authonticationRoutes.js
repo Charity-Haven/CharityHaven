@@ -22,12 +22,12 @@ router.get('/auth/google',
 
 router.get('/google/callback',
     passport.authenticate( 'google', {
-        successRedirect: '/protected',
+        successRedirect: '/homepage',
         failureRedirect: '/unauthirized',
 }));
 
 router.get('/homepage', auth.authorize, (req, res) => {
-    res.render('homepageView.ejs');
+    res.send('welcome in home page');
 });
 
 router.get('/unauthirized' , (req, res) => {

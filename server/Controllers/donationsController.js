@@ -3,7 +3,7 @@ const Donation = require("../Models/donationModel");
 async function addDonation(req, res) {
   try {
     const donor_id = req.user.id;
-    if (req.user.role === 2) {
+    if (req.user.role === 1) {
       const {
         donation_title,
         donation_description,
@@ -57,14 +57,11 @@ async function updateDonation(req, res) {
 
     // Update the donation
     donation.donation_title = donation_title || donation.donation_title;
-    donation.donation_description =
-      donation_description || donation.donation_description;
+    donation.donation_description = donation_description || donation.donation_description;
     donation.donation_type = donation_type || donation.donation_type;
     donation.expected_outcome = expected_outcome || donation.expected_outcome;
     donation.donation_img = donation_img || donation.donation_img;
-
     await donation.save();
-
     res.json(donation);
   } catch (error) {
     console.error(error);
@@ -94,9 +91,9 @@ async function deleteDonation(req, res) {
 
 async function getDonations(req, res) {
   try {
-    const limit = parseInt(req.query.limit) || 4;
+    // const limit = parseInt(req.query.limit) || 4;
 
-    const donations = await Donation.find({ is_deleted: false }).limit(limit);
+    const donations = await Donation.find({ is_deleted: false });
 
     // res.json(donations);
     res.render("homepageView.ejs", { donations });

@@ -1,6 +1,3 @@
-
-
-
 const User = require("../Models/userModel");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -97,7 +94,7 @@ async function loginUser (req, res){
 
 async function updateuser(req, res){
     try{
-        const id = '655a0636579c5a2037e02f7c';
+        const id = req.body.id;
         const {username, email, phoneNumber, age, user_location} = req.body;
         const updateUser = await User.findById(id);
         console.log(updateUser)
@@ -108,14 +105,11 @@ async function updateuser(req, res){
         updateUser.user_location = user_location;
         updateUser.save();
         res.status(201).json("user updates successfully");
-    }catch(error){
-        res.status(500).json(error);
-    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "Email not found" });
   }
-}
+};
 
 module.exports = {
   createUser,

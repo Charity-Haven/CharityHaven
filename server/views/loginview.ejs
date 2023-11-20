@@ -258,13 +258,22 @@ footer a {
     color: #3c97bf;
     text-decoration: none;
 }
+img {
+    width: 55px;
+}
+.social-container {
+    display: inline;
+    position: absolute;
+    top: 81%;
+    right: 75%;
+}
     </style>
 </head>
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
         <div class="social-container">
-            <a href="http://localhost:8080/auth/google" class="social"><i class="fab fa-linkedin-in"></i></a>
+            <a href="http://localhost:8080/auth/google" class="social"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt=""></a>
         </div>
 		<form action="/register" method="post" >
 			<h1>Create Account</h1>
@@ -282,7 +291,7 @@ footer a {
 		<form action="/login" method="post">
 			<h1>Sign in</h1>
 			<div class="social-container">
-				<a href="http://localhost:8080/auth/google" class="social"><i class="fab fa-linkedin-in"></i></a>
+				<a href="http://localhost:8080/auth/google" class="social"><img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png" alt=""></a>
 			</div>
 			<span>or use your account</span>
 			<input type="email" placeholder="Email" name="email" id="email" />
